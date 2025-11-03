@@ -11,13 +11,11 @@ use Jira\ValueObjects\Transporter\Headers;
 
 class Jira
 {
-    public static function client(string $username, string $password, string $host): Client
+    public static function client(string $apiToken, string $host): Client
     {
-        $basicAuthentication = BasicAuthentication::from(username: $username, password: $password);
-
         $baseUri = BaseUri::from(host: $host);
 
-        $headers = Headers::withAuthorization(basicAuthentication: $basicAuthentication);
+        $headers = Headers::withApiToken($apiToken);
 
         $client = new GuzzleClient;
 
